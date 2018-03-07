@@ -1,0 +1,38 @@
+package br.ufc.npi.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import br.ufc.npi.service.JogadorService;
+
+@Controller
+@RequestMapping (path="/jogadores/")
+public class JogadorController {
+	
+	@Autowired
+	JogadorService service;
+	
+	@RequestMapping (path="/")
+	public ModelAndView index (){
+		
+		ModelAndView model = new ModelAndView("jogadores");		
+		model.addObject("jogadores", this.service.getTodosOsJogadores());
+		
+		return model;
+	}
+	
+	@PostMapping(path="/salve")
+	public String salveJogador(@RequestParam String nomeJogador, int idadeJogador) {
+	
+		this.service.salvarJogador(nomeJogador, idadeJogador);
+		return "redirect:/jogadores/";
+	}
+	
+	
+	
+	
+}

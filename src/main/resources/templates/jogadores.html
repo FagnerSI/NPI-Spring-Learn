@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<link href="/webjars/materializecss/0.97.7/css/materialize.css"
+	type="text/css" rel="stylesheet" media="screen,projection" />
+
+<title>FutManager</title>
+</head>
+
+<body>
+
+	<div class="container">
+	   <div class="row valign-wrapper">	      
+	      
+	      <div class="col s6">	          
+	          <a href="/times/" class="valign btn-large waves-effect waves-ligth green rigth">Gerenciar Times</a>
+	      </div>
+	      <div class="col s6">	      
+	          <a href="/jogadores/" class="valign btn-large waves-effect waves-ligth orange rigth">Gerenciar Jogadores</a>
+	      </div>
+	   </div>
+	   <div class="center">
+	         <h4>Gerenciar Jogadores</h4>
+	   </div>
+	   <br/>
+	   <br/>
+	   <div class="row">
+	       <form action="/jogadores/salve" method="POST">
+	          <div class="input-field col s11">
+	             <input name="nomeJogador" placeholder="Nome do jogador" id="jogador" type="text" class="validate"/>
+	             <label for="first_name">Nome</label>
+	          </div>
+	          <div class="input-field col s1">
+	             <input name="idadeJogador" placeholder="Idade" id="idade" type="number" min="0"  max="99" class="validate"/>
+	             <label for="first_name">Idade</label>
+	          </div>
+	          <div>
+	               <button class="btn waves-effect waves-light orange right" type="submit" name="action">Adicionar Jogador</button>
+	          </div>
+	       </form>
+	   </div>
+	   
+	   <div class="row center-align">
+         <h5>Jogadores Cadastrados</h5>
+          <table class="striped">
+             <thead>
+                <tr >
+                   <th>Nome</th>
+                   <th>Time a qual pertence</th>                
+                   <th>Excluir Time</th>
+                </tr>
+             </thead>
+             <tbody>                
+                <tr th:each="jogador : ${jogadores}">
+                   <td th:text="${jogador.nome}"></td>                   
+                   <td th:if="${jogador.time}" th:text="${jogador.time.nome}"></td>   
+                   <td th:unless="${jogador.time}">Sem Time</td>        
+                   <td><a class="waves-effect waves-teal bnt-flat" href="@{${'jogadores/remove'+jogador.id}}"> X </a></td>
+                </tr> 
+             </tbody>
+          </table>	   
+	   </div>
+	
+	</div>
+
+
+	<script src="/webjars/jquery/2.2.4/jquery.js"></script>
+	<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+</body>
+</html>

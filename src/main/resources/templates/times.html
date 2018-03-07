@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<link href="/webjars/materializecss/0.97.7/css/materialize.css"
+	type="text/css" rel="stylesheet" media="screen,projection" />
+
+<title>FutManager</title>
+</head>
+
+<body>
+
+	<div class="container">
+	   <div class="row valign-wrapper">	      
+	      
+	      <div class="col s6">	          
+	          <a href="/times/" class="valign btn-large waves-effect waves-ligth green rigth">Gerenciar Times</a>
+	      </div>
+	      <div class="col s6">	      
+	          <a href="/jogadores/" class="valign btn-large waves-effect waves-ligth orange rigth">Gerenciar Jogadores</a>
+	      </div>
+	   </div>
+	   <div class="center">
+	         <h4>Gerenciar Times</h4>
+	   </div>	  
+	   <br/>
+	   <br/>
+	   <div class="row">
+	       <form action="/times/salve" method="POST">
+	          <div class="input-field">
+	             <label for="first_name">Nome do Time</label>
+	             <input name="nomeTime" placeholder="Nome do Time" id="time" type="text" class="validate"/>	             
+	          </div>
+	          <div>
+	               <button class="btn waves-effect waves-light green right" type="submit" name="action">Adicionar Time</button>
+	          </div>
+	       </form>
+	   </div>
+	   
+	   <div class="row center-align">
+         <h5>Times Cadastrados</h5>
+          <table class="striped">
+             <thead>
+                <tr>
+                   <th>Nome</th>
+                   <th>Número de Jogadores</th>
+                   <th>Detalhes</th>
+                   <th>Excluir</th>
+                </tr>
+             </thead>
+             <tbody>                
+                <tr th:each="time : ${times}">
+                   <td th:text="${time.nome}"/>
+                   <td th:text="${time.jogadores.size()}"/>
+                   <td><a class="waves-effect waves-teal bnt-flat" th:href="@{${'/times/'+time.id}}">Ver Detalhes</a></td>
+                   <td><a class="waves-effect waves-teal bnt-flat" th:href="@{${'/times/remove/'+time.id}}"> X </a></td>
+                </tr> 
+             </tbody>
+          </table>	   
+	   </div>
+	
+	</div>
+
+
+	<script src="/webjars/jquery/2.2.4/jquery.js"></script>
+	<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+</body>
+</html>
